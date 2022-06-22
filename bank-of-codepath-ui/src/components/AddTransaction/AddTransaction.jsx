@@ -1,34 +1,43 @@
 import * as React from "react"
 import "./AddTransaction.css"
 
-export default function AddTransaction() {
+export default function AddTransaction(props) {
+
+  function handleOnFormFieldChange(evt) {
+    props.setForm({...props.form, [evt.target.name]: evt.target.value})
+  }
+
   return (
     <div className="add-transaction">
       <h2>Add Transaction</h2>
 
-      <AddTransactionForm />
+      <AddTransactionForm
+        handleOnFormFieldChange={handleOnFormFieldChange}
+        handleOnSubmit={props.handleOnSubmit}
+        form={props.form}
+        isCreating={props.isCreating}/>
     </div>
   )
 }
 
-export function AddTransactionForm() {
+export function AddTransactionForm(props) {
   return (
     <div className="form">
       <div className="fields">
         <div className="field">
           <label>Description</label>
-          <input />
+          <input name="description" placeholder="Enter Description" type="string" onChange={props.handleOnFormFieldChange} value={props.form?.description} />
         </div>
         <div className="field">
           <label>Category</label>
-          <input />
+          <input name="category" placeholder="Enter category" type="string" onChange={props.handleOnFormFieldChange} value={props.form?.category} />
         </div>
         <div className="field half-flex">
           <label>Amount (cents)</label>
-          <input />
+          <input name="amount" type="number" onChange={props.handleOnFormFieldChange} value={props.form?.amount} />
         </div>
 
-        <button className="btn add-transaction" type="submit">
+        <button className="btn add-transaction" type="submit" onClick={props.handleOnSubmit}>
           Add
         </button>
       </div>

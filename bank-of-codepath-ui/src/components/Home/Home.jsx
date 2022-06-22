@@ -34,9 +34,23 @@ export default function Home(props) {
     ? props.transactions?.filter(transaction => {
         return transaction.description.toLowerCase().includes(props.filterInputValue.toLowerCase())})
     : props.transactions)
-  
-  console.log("filter input val", props.filterInputValue)
-  console.log(filteredTransactions)
+
+  async function handleOnCreateTransaction() {
+    props.setIsCreating(true)
+    
+    axios.post(API_BASE_URL + "/bank/transactions", {transaction: props.newTransactionForm})
+      .then((res) => {
+        props.setTransactions(pastTransactions => [...pastTransactions, res.data.transaction])
+      })
+      .catch((error) => {
+        props.setError(error)
+        setIsCreating(false)
+      })
+      .finally(() => {
+        props.setNewTransactionForm({category: "", description: "", amount: 0})
+        props.setIsCreating(false)
+      })
+  }
 
   return (
     <div className="home">
@@ -45,7 +59,12 @@ export default function Home(props) {
         : <BankActivity
           transactions={filteredTransactions}/>}
       {props.error ? <h2 className="error">Error message</h2> : null}
-      <AddTransaction />
+      <AddTransaction
+        isCreating={props.isCreating}
+        setIsCreating={props.setIsCreating}
+        form={props.newTransactionForm}
+        setForm={props.setNewTransactionForm}
+        handleOnSubmit={handleOnCreateTransaction}/>
     </div>
   )
 }
