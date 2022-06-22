@@ -14,9 +14,11 @@ export default function App() {
   const [filterInputValue, setFilterInputValue] = React.useState("")
 
   return (
-    <div className="App">
+    <div className="app">
       <BrowserRouter>
-        <Navbar />
+        <Navbar
+          filterInputValue={filterInputValue}
+          setFilterInputValue={setFilterInputValue} />
         <main>
           <Routes>
             <Route path="/" element={
