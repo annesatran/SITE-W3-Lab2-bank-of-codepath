@@ -54,10 +54,6 @@ export default function Home(props) {
 
   return (
     <div className="home">
-      {props.isLoading
-        ? <h1>Loading...</h1>
-        : <BankActivity
-          transactions={filteredTransactions}/>}
       {props.error ? <h2 className="error">Error message</h2> : null}
       <AddTransaction
         isCreating={props.isCreating}
@@ -65,6 +61,11 @@ export default function Home(props) {
         form={props.newTransactionForm}
         setForm={props.setNewTransactionForm}
         handleOnSubmit={handleOnCreateTransaction}/>
+      {props.isLoading
+        ? <h1>Loading...</h1>
+        : <BankActivity
+          transactions={filteredTransactions}
+          transfers={props.transfers} /> }
     </div>
   )
 }

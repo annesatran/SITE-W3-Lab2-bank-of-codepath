@@ -26,11 +26,11 @@ export function AddTransactionForm(props) {
       <div className="fields">
         <div className="field">
           <label>Description</label>
-          <input name="description" placeholder="Enter Description" type="string" onChange={props.handleOnFormFieldChange} value={props.form?.description} />
+          <input name="description" placeholder="Enter a description..." type="string" onChange={props.handleOnFormFieldChange} value={props.form?.description} />
         </div>
         <div className="field">
           <label>Category</label>
-          <input name="category" placeholder="Enter category" type="string" onChange={props.handleOnFormFieldChange} value={props.form?.category} />
+          <input name="category" placeholder="Enter a category..." type="string" onChange={props.handleOnFormFieldChange} value={props.form?.category} />
         </div>
         <div className="field half-flex">
           <label>Amount (cents)</label>
